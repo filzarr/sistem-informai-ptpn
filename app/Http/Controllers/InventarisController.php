@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\inventaris;
+use App\Models\category_inventaris;
+use Auth;
 class InventarisController extends Controller
 {
     /**
@@ -11,7 +13,11 @@ class InventarisController extends Controller
      */
     public function index()
     {
-        return view('inventaris.index');
+        $inventaris = inventaris::join('category_inventaris', 'inventaris.category_id', '=', 'category_inventaris.id')
+        ->select('inventaris.*') // Pilih semua kolom dari tabel inventaris
+        ->get();
+        dd($inventaris);
+        return view('inventaris.index', compact('inventaris'));
     }
 
     /**
@@ -19,7 +25,8 @@ class InventarisController extends Controller
      */
     public function create()
     {
-        return view('inventaris.create');
+        $category = category_inventaris::get();
+        return view('inventaris.create', compact('category'));
     }
 
     /**
@@ -27,7 +34,22 @@ class InventarisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateddata = $request->validate([
+            'nama' => 'required',
+            'nomor_mesin' => 'required',
+            'merek' => 'required',
+            'tahun_perolehan' => 'required',
+            'type' => 'required',
+            'kapasitas' => 'required',
+            'nomor_inventaris' => 'required',
+            'nilai_aktiva' => 'required',
+            'kondisi_mesin' => 'required',
+            'category_id' => 'required',
+        ]);
+        $validateddata['user_id'] = Auth::id(); 
+        // dd($validateddata);
+        inventaris::create($validateddata);
+        return redirect('/inventaris')->with('success', 'Berhasil Menambahkan Data Inventaris');
     }
 
     /**
@@ -43,7 +65,8 @@ class InventarisController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = inventaris::where('id','=', $id)->get();
+        dd($data);
     }
 
     /**
@@ -60,5 +83,17 @@ class InventarisController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function inventaris_create(){
+        return view('inventaris.category-create');
+    }
+    public function inventaris_create_submit(Request $request){
+        $validateddata = $request->validate([
+            'category' => 'required',
+        ]);
+        category_inventaris::create($validateddata);
+        
+        return redirect('/inventaris')->with('success', 'Berhasil Menambahkan Data Kategory');
+
     }
 }

@@ -27,7 +27,9 @@ Route::resource('inventaris', InventarisController::class)->middleware(['auth', 
 Route::resource('data-minyak-sawit', DataMinyakSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'data-minyak-sawit']);
 Route::resource('data-inti-sawit', DataMinyakIntiSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'data-inti-sawit']);
 Route::resource('analisa', AnalisaSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'analisa']);
-
+Route::resource('user', AnalisaSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'user']);
+Route::get('/inventaris/category/create', [InventarisController::class, 'inventaris_create']);
+Route::post('/inventaris/category/create', [InventarisController::class, 'inventaris_create_submit']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
                         {{ __('Analisa Data Sawit') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                        {{ __('Manajemen Pengguna') }}
+                    </x-nav-link>
                 </div>
             </div>
 

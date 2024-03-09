@@ -17,7 +17,12 @@
             </ol>
         </nav>
     </x-slot>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
+        @if (\Session::has('success'))
+            <x-alerts.succes>{!! \Session::get('success') !!}</x-alerts.succes>
+        @endif
+
         <header class=" flex justify-center">
             <h3 class=" text-lg font-semibold text-gray-800">Data Inventaris PTPN IV GUNUNG BANYU</h3>
         </header>
@@ -52,6 +57,11 @@
                     <button type="button"
                         class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
                         Excel</button>
+                    <a href="/inventaris/category/create">
+                        <button type="button"
+                            class="text-white  bg-amber-600  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
+                            Tambah Kategori Mesin</button>
+                    </a>
                     <a href="/inventaris/create">
                         <button type="button"
                             class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
@@ -64,6 +74,7 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
                         <tr>
                             <th width="5%" class=" text-center px-6 py-3">
                                 No.
@@ -105,44 +116,52 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse ($inventaris as $item)
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 text-center ">
-                                1.
-                            </th>
-                            <th
-                                class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
-                                JEMBATAN TIMBANG CPO
-                            </th>
-                            <td class="px-6 py-4 text-center ">
-                                1
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                AVERY
-                            </td>
-                            <td class=" text-center px-6 py-4">
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 text-center ">
+                            {{$loop->iteration}}
+                        </th>
+                        <th
+                            class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                            {{$item->nama}}
+                            {{$item->id}}
+                        </th>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->nomor_mesin}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->merek}}
+                        </td>
+                        <td class=" text-center px-6 py-4">
+                            {{$item->type}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->kapasitas}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->tahun_perolehan}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->nomor_inventaris}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->nilai_aktiva}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->category}}
+                        </td>
+                        <td class="px-6 py-4 text-center ">
+                            {{$item->kondisi_mesin}}
+                        </td>
 
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                50 Ton
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                1985
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                220000005223
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                1
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                Penerimaan Buah
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                80%
-                            </td>
-
-                        </tr>
+                    </tr>
+                        @empty
+                            <tr>
+                                <td colspan="100%" class=" text-center font-light text-gray-500">Data Belum Ada</td>
+                            </tr>
+                        @endforelse
+                      
 
                     </tbody>
                 </table>
