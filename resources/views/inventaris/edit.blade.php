@@ -20,7 +20,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Tambah</span>
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Edt</span>
                     </div>
                 </li>
 
@@ -30,92 +30,41 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
         <header class=" flex justify-center">
-            <h3 class=" text-lg font-semibold text-gray-800">Tambah Data Inventaris PTPN IV GUNUNG BANYU</h3>
+            <h3 class=" text-lg font-semibold text-gray-800">Update Data Inventaris PTPN IV GUNUNG BANYU</h3>
         </header>
-        <form class="grid gap-5 mt-5" method="POST" action="{{url('/inventaris')}}">
+        <form class="grid gap-5 mt-5" method="POST" action="/inventaris/{{$inventaris->id}}" method="POST">
             @csrf
+            @method('PUT')
             <div class="grid gap-6  md:grid-cols-2">
-                <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                        Mesin
-                        / Peralatan </label>
-                    <input type="text" name="nama" id="default-input"
-                        placeholder="Masukkan Nama Mesin / Peralatan"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div>
-                <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.
-                        Inventaris / No. Aset</label>
-                    <input type="text" name="nomor_inventaris" id="default-input"
-                        placeholder="Masukkan Nama Mesin / Peralatan"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div>
-            </div>
-            <div class="grid gap-6  md:grid-cols-2">
-                <div class="">
-                    <label for="nomormesin"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penomoran Mesin /
-                        Peralatan</label>
-                    <input type="text" name="nomor_mesin" id="nomormesin"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Masukan Penomoran Mesin" required>
-                </div>
-                <div>
-                    <label for="merek"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Merek</label>
-                    <input type="text" name="merek" id="merek"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Masukan Merek" required>
-                </div>
+                <x-form.text value="{{$inventaris->nama}}" formname="namamesin" label="Nama Mesin / Peralatan" name="nama" placeholder="Masukkan Nama Mesin / Peralatan"  messageerror="Nama Mesin / Peralatan Belum Diisi"></x-form.text>
+                <x-form.text value="{{$inventaris->nomor_inventaris}}" formname="noinventaris" label="No. Inventaris / No. Aset" name="nomor_inventaris" placeholder="Masukkan Nomor Inventaris atau Nomor Aset"  messageerror="Nomor Inventaris Belum Diisi"></x-form.text>
 
             </div>
+            <div class="grid gap-6  md:grid-cols-2">
+                <x-form.text value="{{$inventaris->nomor_mesin}}" formname="nomormesin" label="Penomoran Mesin / Peralatan" name="nomor_mesin" placeholder="Masukkan Penomoran Mesin"  messageerror="Nomor Mesin Belum Diisi"></x-form.text>
+                <x-form.text value="{{$inventaris->merek}}" formname="merek" label="Masukkan Merek" name="merek" placeholder="Masukkan Merek Mesin"  messageerror="Merek Mesin Belum Diisi"></x-form.text>
+            </div>
             <div class="grid gap-6  md:grid-cols-3">
-                <div>
-                    <label for="type"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">TYPE/JENIS/SPESIFIKASI
-                        TEKNIS</label>
-                    <input type="text" id="type" name="type"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Masukan Type " required>
-                </div>
-                <div>
-                    <label for="kapasitas"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kapasitas Mesin /
-                        Instalasi</label>
-                    <input type="text" id="kapasitas" name="kapasitas"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Masukan Kapasitas Mesin " required>
-                </div>
+                <x-form.text value="{{$inventaris->type}}" formname="type" label="TYPE/JENIS/SPESIFIKASI" name="type" placeholder="Masukkan Type Mesin"  messageerror="Type Mesin Belum Diisi"></x-form.text>
+                <x-form.text value="{{$inventaris->kapasitas}}" formname="kapasitas" label="Kapasistas Mesin / Instalasi" name="kapasitas" placeholder="Masukkan Kapasitas Mesin"  messageerror="Kapasistas Mesin Belum Diisi"></x-form.text>
                 <div>
                     <label for="perolehan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tahun
                         Perolehan</label>
                     <select id="perolehan" name="tahun_perolehan"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        
-                        <option disabled selected>Pilih Tahun</option>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">       
+                        <option value="{{$inventaris->tahun_perolehan}}" selected>{{$inventaris->tahun_perolehan}}</option>
                         @for ($i = 2024; $i >= 2000; $i--)
+                        @if ($inventaris->tahun_perolehan != $i)
                         <option  value="{{$i}}">{{$i}}</option>
+                        @endif
                         @endfor
-
-
                     </select>
                 </div>
             </div>
             <div class="grid gap-6  md:grid-cols-2">
-                <div>
-                    <label for="aktiva" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nilai
-                        Aktiva Terakhir (Rp.)</label>
-                    <input type="text" id="aktiva" name="nilai_aktiva"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Rp.****" required>
-                </div>
-                <div>
-                    <label for="kondisi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kondisi
-                        Mesin (%)</label>
-                    <input type="text" id="kondisi" name="kondisi_mesin"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Kondisi Mesin (%) " required>
-                </div>
+                <x-form.text value="{{$inventaris->nilai_aktiva}}" formname="aktiva" label="Nilai Aktiva Terakhir (Rp.)" name="nilai_aktiva" placeholder="Rp.*****"  messageerror="Nilai Aktiva Terakhir Belum Diisi"></x-form.text>
+                <x-form.text value="{{$inventaris->kondisi_mesin}}" formname="kondisi" label="Kondisi Mesin (1-100%)" name="kondisi_mesin" placeholder="Masukkan Kondisi Mesin"  messageerror="Kondisi Mesin Mesin Belum Diisi"></x-form.text>
+                  
             </div>
             <div class="grid gap-6  md:grid-cols-2">
                 <div class="">
@@ -123,12 +72,10 @@
                         Kategori</label>
                     <select id="countries" name="category_id"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option disabled selected>Pilih Kategori</option>
+                        <option value="{{$inventaris->category_id}}" selected>{{$inventaris->category}}</option>
                         @foreach ($category as $item)
                             <option value="{{ $item->id }}">{{ $item->category }}</option>
                         @endforeach
-
-
                     </select>
                 </div>
             </div>

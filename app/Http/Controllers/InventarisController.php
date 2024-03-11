@@ -14,9 +14,9 @@ class InventarisController extends Controller
     public function index()
     {
         $inventaris = inventaris::join('category_inventaris', 'inventaris.category_id', '=', 'category_inventaris.id')
-        ->select('inventaris.*') // Pilih semua kolom dari tabel inventaris
+        ->select('inventaris.*', 'category_inventaris.category') // Pilih semua kolom dari tabel inventaris
         ->get();
-        dd($inventaris);
+        // dd($inventaris);
         return view('inventaris.index', compact('inventaris'));
     }
 
@@ -65,8 +65,10 @@ class InventarisController extends Controller
      */
     public function edit(string $id)
     {
-        $data = inventaris::where('id','=', $id)->get();
-        dd($data);
+        $inventaris = inventaris::join('category_inventaris', 'inventaris.category_id', '=', 'category_inventaris.id')->select('inventaris.*', 'category_inventaris.category')->find($id);
+        $category = category_inventaris::where('id', '<>', $inventaris->category_id)->get();
+        // dd($category);
+        return view('inventaris.edit', compact('inventaris','category'));
     }
 
     /**
@@ -74,15 +76,33 @@ class InventarisController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateddata = $request->validate([
+            'nama' => 'required',
+            'nomor_mesin' => 'required',
+            'merek' => 'required',
+            'tahun_perolehan' => 'required',
+            'type' => 'required',
+            'kapasitas' => 'required',
+            'nomor_inventaris' => 'required',
+            'nilai_aktiva' => 'required',
+            'kondisi_mesin' => 'required',
+            'category_id' => 'required',
+        ]);
+        $inventaris = inventaris::find($id);
+        $validateddata['user_id'] = Auth::id(); 
+        $inventaris->update($validateddata);
+        // inventaris::update($validateddata)->where('id',$id);
+        return redirect('/inventaris')->with('info', 'Berhasil Memperbarui Data');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+    { 
+        $data = inventaris::find($id);
+        $data->delete();
+        return redirect('/inventaris')->with('danger', 'Berhasil Menghapus Data');
     }
     public function inventaris_create(){
         return view('inventaris.category-create');
