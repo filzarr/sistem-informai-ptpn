@@ -79,13 +79,13 @@ class InventarisController extends Controller
         $validateddata = $request->validate([
             'nama' => 'required',
             'nomor_mesin' => 'required',
-            'merek' => 'required',
-            'tahun_perolehan' => 'required',
-            'type' => 'required',
-            'kapasitas' => 'required',
-            'nomor_inventaris' => 'required',
-            'nilai_aktiva' => 'required',
-            'kondisi_mesin' => 'required',
+            'merek' => '',
+            'tahun_perolehan' => '',
+            'type' => '',
+            'kapasitas' => '',
+            'nomor_inventaris' => '',
+            'nilai_aktiva' => '',
+            'kondisi_mesin' => '',
             'category_id' => 'required',
         ]);
         $inventaris = inventaris::find($id);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\AnalisaSawitController;
@@ -30,6 +31,7 @@ Route::resource('analisa', AnalisaSawitController::class)->middleware(['auth', '
 Route::resource('user', AnalisaSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'user']);
 Route::get('/inventaris/category/create', [InventarisController::class, 'inventaris_create']);
 Route::post('/inventaris/category/create', [InventarisController::class, 'inventaris_create_submit']);
+Route::get('/export/inventaris', [ExcelController::class, 'inventaris']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

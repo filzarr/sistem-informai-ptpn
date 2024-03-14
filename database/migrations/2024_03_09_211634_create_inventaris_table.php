@@ -15,12 +15,12 @@ return new class extends Migration
             $table->uuid('id')->primary()->nullable(false);
             $table->string('nama');
             $table->string('nomor_mesin');
-            $table->string('merek');
-            $table->char('tahun_perolehan', 4);
-            $table->string('type');
-            $table->string('kapasitas');
-            $table->string('nomor_inventaris');
-            $table->string('nilai_aktiva');
+            $table->string('merek')->nullable();
+            $table->char('tahun_perolehan', 4)->nullable();
+            $table->string('type')->nullable();
+            $table->string('kapasitas')->nullable();
+            $table->string('nomor_inventaris')->nullable();
+            $table->string('nilai_aktiva')->nullable();
             $table->char('kondisi_mesin', 3);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category_inventaris');
