@@ -60,9 +60,11 @@
                     </button>
                 </div>
                 <div class="flex ">
-                    <button type="button"
-                        class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
-                        Excel</button>
+                    <a href="/export/inventaris">
+                        <button type="button"
+                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
+                            Excel</button>
+                    </a>
                     <a href="/inventaris/category/create">
                         <button type="button"
                             class="text-white  bg-amber-600  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
