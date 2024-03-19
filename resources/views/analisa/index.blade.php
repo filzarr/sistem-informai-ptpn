@@ -10,7 +10,7 @@
                             <path
                                 d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                         </svg>
-                        Analisa Data Sawit
+                        Analisa Data Cpo Produksi
                     </a>
                 </li>
 
@@ -18,9 +18,17 @@
         </nav>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
-
+        @if (\Session::has('success'))
+            <x-alerts.succes>{!! \Session::get('success') !!}</x-alerts.succes>
+        @endif
+        @if (\Session::has('info'))
+            <x-alerts.info>{!! \Session::get('info') !!}</x-alerts.info>
+        @endif
+        @if (\Session::has('danger'))
+            <x-alerts.danger>{!! \Session::get('danger') !!}</x-alerts.danger>
+        @endif
         <header class=" flex justify-center mt-7">
-            <h3 class=" text-lg font-semibold text-gray-800">Analisa Data Sawit</h3>
+            <h3 class=" text-lg font-semibold text-gray-800">Analisa Data CPO Produksi</h3>
         </header>
         <div class="grid mt-10">
 
@@ -39,12 +47,12 @@
                     </button>
                 </div>
                 <div class="flex ">
-                    <button type="button"
+                    <a href="export/analisa"
                         class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
-                        Excel</button>
-                    <button type="button"
+                        Excel</a>
+                    <a href="/analisa/create"
                         class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
-                        Analisa Hari Ini</button>
+                        Analisa</a>
                 </div>
             </div>
 
@@ -57,63 +65,110 @@
                                 No.
                             </th>
                             <th width="5%" class=" text-center px-6 py-3">
-                                Nama Product
+                                VM(%)
                             </th>
                             <th scope="col" class=" text-center px-6 py-3">
-                                Analysis Time
+                                NOS(%)
                             </th>
                             <th scope="col" class="px-6 py-3 text-center ">
-                                ALB
+                                DOBI(%)
                             </th>
                             <th scope="col" class="px-6 py-3 text-center ">
-                                Kadar Air
+                                Waktu Analisa
                             </th>
                             <th scope="col" class="px-6 py-3 text-center ">
-                                Kadar Kotoran
+                                Action
                             </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                ALB(inti Sawit)
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Kadar Air(inti Sawit)
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Kadar Kotoran(inti Sawit)
-                            </th>
-
-
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 text-center ">
-                                1.
-                            </th>
-                            <th
-                                class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                        @foreach ($analisa as $item)
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td scope="row" class="px-6 py-4 text-center ">
+                                    {{$loop->iteration}}
+                                </td>
+                                <td
+                                    class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                                    {{$item->vm}}%
+                                </td>
+                                <td
+                                    class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                                    {{$item->ffa}}%
+                                </td>
+                                <td
+                                    class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                                    {{$item->dobi}}%
+                                </td>
+                                <td
+                                    class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->waktu_analisis)->format('d-m-Y H:i:s') }}Wib
+                                </td>
+                                <td class="  py-4 text-center flex gap-3 items-center align-middle justify-center">
+                                    <a href="/inventaris/{{ $item->id }}/edit">
+                                        <iconify-icon icon="mdi:pencil-box" width="30" height="30"
+                                            style="color: #ffd500"></iconify-icon>
+                                    </a>
+                                    <button data-modal-target="{{ $item->id }}" data-modal-toggle="{{ $item->id }}"
+                                        class="block  "
+                                        type="button">
+                                        <iconify-icon icon="pepicons-pop:trash-circle-filled" width="24"
+                                            height="24" style="color: #d10000"></iconify-icon>
+                                    </button>
 
-                            </th>
-                            <td class="px-6 py-4 text-center ">
+                             
+                                </td>
+                                <div id="{{ $item->id }}" tabindex="-1"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                               
+                                    <div class="relative p-4 w-full max-w-md max-h-full  ">
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <button type="button"
+                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="{{ $item->id }}">
+                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                            <div class="p-4 md:p-5 text-center">
+                                                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                                <h3
+                                                    class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                    Apakah Anda Yakin Ingin Menghapus Data</h3>
+                                                <form
+                                                    action="{{ route('analisa.destroy', ['analisa' => $item->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+    
+                                                    <button data-modal-hide="popup-modal" type="submit"
+                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                                        Iya
+                                                    </button>
+                                                </form>
+    
+                                                <button data-modal-hide="{{ $item->id }}" type="button"
+                                                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
+                                                    cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
 
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                AVERY
-                            </td>
-                            <td class=" text-center px-6 py-4">
+                            </tr>
+                        @endforeach
 
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                50 Ton
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                1985
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                220000005223
-                            </td>
-
-                        </tr>
 
                     </tbody>
                 </table>

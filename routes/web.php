@@ -32,6 +32,7 @@ Route::resource('user', AnalisaSawitController::class)->middleware(['auth', 'ver
 Route::get('/inventaris/category/create', [InventarisController::class, 'inventaris_create']);
 Route::post('/inventaris/category/create', [InventarisController::class, 'inventaris_create_submit']);
 Route::get('/export/inventaris', [ExcelController::class, 'inventaris']);
+Route::get('/export/analisa', [ExcelController::class, 'analisasawit']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

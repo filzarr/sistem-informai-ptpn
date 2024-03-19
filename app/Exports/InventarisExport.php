@@ -15,7 +15,10 @@ class InventarisExport implements FromView, ShouldAutoSize{
         foreach ($data as $category) {
             $category->inventaris = inventaris::where('category_id', $category->id)->get();
         }
-        // dd($data);
+        // foreach ($data as $category) {
+        //     dd($category->inventaris->count());
+        // }
+        // dd($data[0]->inventaris[0]->nama);
         return view('excel.inventaris', compact('data'));
     }
 }
