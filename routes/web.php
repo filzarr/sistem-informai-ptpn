@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InventarisController;
@@ -28,7 +29,7 @@ Route::resource('inventaris', InventarisController::class)->middleware(['auth', 
 Route::resource('data-minyak-sawit', DataMinyakSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'data-minyak-sawit']);
 Route::resource('data-inti-sawit', DataMinyakIntiSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'data-inti-sawit']);
 Route::resource('analisa', AnalisaSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'analisa']);
-Route::resource('user', AnalisaSawitController::class)->middleware(['auth', 'verified'])->names(['index' => 'user']);
+Route::resource('user', UserController::class)->middleware(['auth', 'verified'])->names(['index' => 'user']);
 Route::get('/inventaris/category/create', [InventarisController::class, 'inventaris_create']);
 Route::post('/inventaris/category/create', [InventarisController::class, 'inventaris_create_submit']);
 Route::get('/export/inventaris', [ExcelController::class, 'inventaris']);
