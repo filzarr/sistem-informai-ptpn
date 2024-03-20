@@ -18,7 +18,15 @@
         </nav>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
-  
+        @if (\Session::has('success'))
+            <x-alerts.succes>{!! \Session::get('success') !!}</x-alerts.succes>
+        @endif
+        @if (\Session::has('info'))
+            <x-alerts.info>{!! \Session::get('info') !!}</x-alerts.info>
+        @endif
+        @if (\Session::has('danger'))
+            <x-alerts.danger>{!! \Session::get('danger') !!}</x-alerts.danger>
+        @endif
         <header class=" flex justify-center mt-7">
             <h3 class=" text-lg font-semibold text-gray-800">Data Pengguna Sistem Informasi CPO Produksi PTPN4</h3>
         </header>
@@ -38,10 +46,11 @@
                         </svg>
                     </button>
                 </div>
-                <div class="flex "> 
-                    <a href="/data-minyak-sawit/create">
+                <div class="flex ">
+                    <a href="/user/create">
                         <button type="button"
-                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah Pengguna</button>
+                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
+                            Pengguna</button>
                     </a>
                 </div>
             </div>
@@ -67,38 +76,53 @@
                                 Status
                             </th>
                             <th scope="col" class=" text-center px-6 py-3">
-                              Action
-                            </th> 
+                                Action
+                            </th>
 
 
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 text-center ">
-                                1.
-                            </th>
-                            <th
-                                class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                        @forelse ($data as $item)
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td scope="row" class="px-6 py-4 text-center ">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td
+                                    class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                                    {{ $item->username }}
+                                </td>
+                                <td class="px-6 py-4 text-center ">
+                                    {{ $item->email }}
+                                </td>
+                                <td class="px-6 py-4 text-center ">
+                                    {{ $item->role }}
+                                </td>
+                                <td class=" text-center px-6 py-4">
+                                    @if ($item->active == 1)
+                                        <button class=" bg-green-500 text-gray-300 p-3 rounded text-sm">Aktive</button>
+                                    @else
+                                        <button class=" bg-red-500 text-gray-300 p-3 rounded text-sm">Aktive</button>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 text-center ">
 
-                            </th>
-                            <td class="px-6 py-4 text-center ">
-
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                
-                            </td>
-                            <td class=" text-center px-6 py-4">
-
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                
-                            </td>
+                                </td>
 
 
-                        </tr>
+                            </tr>
+                        @empty
+                            <tr
+                                class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td scope="row" class="px-6 py-4 text-center " colspan="6">
+                                    Tidak Ada Data
+                                </td> 
+
+
+                            </tr>
+                        @endforelse 
 
                     </tbody>
                 </table>
