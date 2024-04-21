@@ -22,7 +22,7 @@
                         {{ __('Data Minyak Sawit') }}
                     </x-nav-link>
                     <x-nav-link :href="route('data-inti-sawit')" :active="request()->routeIs('data-inti-sawit')">
-                        {{ __('Data Inti Sawit') }}
+                        {{ __('Laporan Harian') }}
                     </x-nav-link>
                     <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
                         {{ __('Analisa Data Sawit') }}

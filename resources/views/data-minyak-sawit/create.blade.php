@@ -40,11 +40,11 @@
                     <div class=" w-full">
                         <input type="number" id="currency-input"
                             class="block p-2.5 w-full z-20  text-sm text-gray-900 bg-gray-50 rounded-s-lg border-e-gray-50 border-e-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-e-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                            placeholder="Enter amount" required />
+                            placeholder="Enter amount" name="stok" required />
                     </div>
                     <button id="dropdown-currency-button" data-dropdown-toggle="dropdown-currency"
                         class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-e-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
-                        type="button">
+                        type="button" disabled>
                         KG
                     </button>
                     <div id="dropdown-currency"
@@ -74,9 +74,9 @@
                 </div>
             </div>
             <div class="mb-5">
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
+                <label for="countries"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
                     Kategori</label>
-                <select id="countries"
+                <select id="countries" name=""
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected disabled>Pilih</option>
                     <option value="US">Stok Masuk</option>

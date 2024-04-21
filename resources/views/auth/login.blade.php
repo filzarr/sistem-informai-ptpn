@@ -4,7 +4,15 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
+        @if (\Session::has('success'))
+            <x-alerts.succes>{!! \Session::get('success') !!}</x-alerts.succes>
+        @endif
+        @if (\Session::has('info'))
+            <x-alerts.info>{!! \Session::get('info') !!}</x-alerts.info>
+        @endif
+        @if (\Session::has('danger'))
+            <x-alerts.danger>{!! \Session::get('danger') !!}</x-alerts.danger>
+        @endif
         <!-- Email Address -->
         <div>
             <x-input-label for="NIP" :value="__('NIP')" />

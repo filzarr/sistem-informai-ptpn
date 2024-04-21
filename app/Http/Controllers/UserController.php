@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::where('role_user', '<>', '4')->join('role_users', 'users.role_user', '=', 'role_users.id')->get();
+        $data = User::where('role_user', '<>', '4')->join('role_users', 'users.role_user', '=', 'role_users.id')->select('users.*', 'role_users.role')->get();
         // dd($data);
         return view('user.index', compact('data'));
     }
@@ -79,6 +79,23 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = User::find($id);
+        $data->delete();
+        return redirect('/user')->with('danger', 'Berhasil Menghapus Pengguna');
+    }
+    public function active(string $id){
+        $data = User::find($id);
+        if ($data->active == 1) {
+            
+        $data->update([
+            'active' => '0',
+        ]);
+        }
+        else{
+            $data->update([
+                'active' => '1',
+            ]); 
+        }
+        return redirect('/user')->with('info', 'Berhasil Mengaktifkan/Menonaktifkan Pengguna');
     }
 }
