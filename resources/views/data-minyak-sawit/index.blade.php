@@ -18,21 +18,30 @@
         </nav>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
+        @if (\Session::has('success'))
+            <x-alerts.succes>{!! \Session::get('success') !!}</x-alerts.succes>
+        @endif
+        @if (\Session::has('info'))
+            <x-alerts.info>{!! \Session::get('info') !!}</x-alerts.info>
+        @endif
+        @if (\Session::has('danger'))
+            <x-alerts.danger>{!! \Session::get('danger') !!}</x-alerts.danger>
+        @endif
         <div class="grid grid-cols-4 gap-10">
             <div
                 class="flex items-center gap-5  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <iconify-icon class="text-3xl" icon="icon-park-solid:data" style="color: #0ac2ff"></iconify-icon>
                 <div class="grid">
                     <h3 class=" font-semibold text-gray-600">Stok Minyak Sawit</h3>
-                    <span class="text-sm font-semibold text-gray-500">50</span>
+                    <span class="text-sm font-semibold text-gray-500">{{$stok->stok}}</span>
                 </div>
             </div>
             <div
                 class="flex items-center gap-5  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <iconify-icon class="text-3xl" icon="emojione-monotone:oil-drum" style="color: #fff700"></iconify-icon>
                 <div class="grid">
-                    <h3 class=" font-semibold text-gray-600">Produksi Minyak Sawit Bulan Ini</h3>
-                    <span class="text-sm font-semibold text-gray-500">Belum Ada</span>
+                    <h3 class=" font-semibold text-gray-600">Data Minyak Sawit Masuk Bulan Ini</h3>
+                    <span class="text-sm font-semibold text-gray-500">{{$stokmasuk}}</span>
                 </div>
             </div>
             <div
@@ -41,7 +50,7 @@
                     style="color: #3700ff"></iconify-icon>
                 <div class="grid">
                     <h3 class=" font-semibold text-gray-600">Pengiriman Minyak Sawit Bulan Ini</h3>
-                    <span class="text-sm font-semibold text-gray-500">Belum Ada</span>
+                    <span class="text-sm font-semibold text-gray-500">{{$stokkeluar}}</span>
                 </div>
             </div>
         </div>
@@ -92,12 +101,12 @@
                             </th>
                             <th scope="col" class=" text-center px-6 py-3">
                                 Nama Penginput
-                            </th>
-                            <th scope="col" class=" text-center px-6 py-3">
-                                Action
-                            </th>
+                            </th> 
                             <th scope="col" class=" text-center px-6 py-3">
                                 Keterangan
+                            </th>
+                            <th scope="col" class=" text-center px-6 py-3">
+                                Tanggal
                             </th>
 
 
@@ -105,30 +114,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 text-center ">
-                                1.
-                            </th>
-                            <th
-                                class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                        @forelse ($ketsawit as $item)
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" class="px-6 py-4 text-center ">
+                                    {{$loop->iteration}}
+                                </th>
+                                <th
+                                    class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
+                                    {{$item->stoksebelumnya}}
+                                </th>
+                                <td class="px-6 py-4 text-center text-gray-900">
+                                    {{$item->stoksetelahnya}}
+                                </td>
+                                <td class="px-6 py-4 text-center text-gray-900 ">
+                                    {{$item->name}}
+                                </td> 
+                                <td class="px-6 py-4 text-center text-gray-900 ">
+                                    {{$item->keterangan}}
+                                </td>
+                                <td class="px-6 py-4 text-center text-gray-900 ">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d-m-Y H:i:s') }}Wib
+                                </td>
 
-                            </th>
-                            <td class="px-6 py-4 text-center ">
 
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                AVERY
-                            </td>
-                            <td class=" text-center px-6 py-4">
+                            </tr>
+                        @empty
+                        @endforelse
 
-                            </td>
-                            <td class="px-6 py-4 text-center ">
-                                50 Ton
-                            </td>
-
-
-                        </tr>
 
                     </tbody>
                 </table>

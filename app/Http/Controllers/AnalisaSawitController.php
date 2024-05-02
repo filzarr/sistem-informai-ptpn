@@ -13,7 +13,7 @@ class AnalisaSawitController extends Controller
      */
     public function index()
     { 
-        $analisa = Analisasawit::get();
+        $analisa = Analisasawit::paginate(15);
         return view('analisa.index', compact('analisa'));
     }
 
@@ -37,6 +37,12 @@ class AnalisaSawitController extends Controller
             'ffa' => 'required',
             'dobi' => 'required',
             'waktu_analisis' => 'required', 
+        ],[
+            'vm.required' => 'VM Wajib Diisi',
+            'nos.required' => 'NOS Wajib Diisi',
+            'ffa.required' => 'ffa Wajib Diisi',
+            'dobi.required' => 'Dobi Wajib Diisi',
+            'waktu_analisis.required' => 'Waktu Analisis Wajib Diisi', 
         ]);
         $validateddata['user_id'] = Auth::id(); 
         Analisasawit::create($validateddata);

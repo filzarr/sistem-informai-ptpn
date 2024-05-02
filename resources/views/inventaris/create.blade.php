@@ -35,17 +35,17 @@
         <form class="grid gap-5 mt-5" method="POST" action="{{url('/inventaris')}}">
             @csrf
             <div class="grid gap-6  md:grid-cols-2">
-                <x-form.text value="" formname="namamesin" label="Nama Mesin / Peralatan" name="nama" placeholder="Masukkan Nama Mesin / Peralatan"  messageerror="Nama Mesin / Peralatan Belum Diisi"></x-form.text>
-                <x-form.text value="" formname="noinventaris" label="No. Inventaris / No. Aset" name="nomor_inventaris" placeholder="Masukkan Nomor Inventaris atau Nomor Aset"  messageerror="Nomor Inventaris Belum Diisi"></x-form.text>
+                <x-form.text value=""   label="Nama Mesin / Peralatan" name="nama" placeholder="Masukkan Nama Mesin / Peralatan"   ></x-form.text>
+                <x-form.text value=""   label="No. Inventaris / No. Aset" name="nomor_inventaris" placeholder="Masukkan Nomor Inventaris atau Nomor Aset"   ></x-form.text>
 
             </div>
             <div class="grid gap-6  md:grid-cols-2">
-                <x-form.text value="" formname="nomormesin" label="Penomoran Mesin / Peralatan" name="nomor_mesin" placeholder="Masukkan Penomoran Mesin"  messageerror="Nomor Mesin Belum Diisi"></x-form.text>
-                <x-form.text value="" formname="merek" label="Masukkan Merek" name="merek" placeholder="Masukkan Merek Mesin"  messageerror="Merek Mesin Belum Diisi"></x-form.text>
+                <x-form.text value=""  label="Penomoran Mesin / Peralatan" name="nomor_mesin" placeholder="Masukkan Penomoran Mesin"   ></x-form.text>
+                <x-form.text value=""  label="Masukkan Merek" name="merek" placeholder="Masukkan Merek Mesin"  ></x-form.text>
             </div>
             <div class="grid gap-6  md:grid-cols-3">
-                <x-form.text value="" formname="type" label="TYPE/JENIS/SPESIFIKASI" name="type" placeholder="Masukkan Type Mesin"  messageerror="Type Mesin Belum Diisi"></x-form.text>
-                <x-form.text value="" formname="kapasitas" label="Kapasistas Mesin / Instalasi" name="kapasitas" placeholder="Masukkan Kapasitas Mesin"  messageerror="Kapasistas Mesin Belum Diisi"></x-form.text>
+                <x-form.text value=""   label="TYPE/JENIS/SPESIFIKASI" name="type" placeholder="Masukkan Type Mesin"  ></x-form.text>
+                <x-form.text value=""   label="Kapasistas Mesin / Instalasi" name="kapasitas" placeholder="Masukkan Kapasitas Mesin"   ></x-form.text>
                 <div>
                     <label for="perolehan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tahun
                         Perolehan</label>
@@ -56,11 +56,14 @@
                         <option  value="{{$i}}">{{$i}}</option>
                         @endfor
                     </select>
+                    @error('tahun_perolehan')
+                    <span class="text-red-500 text-sm">{{$message}}</span>
+                     @enderror
                 </div>
             </div>
             <div class="grid gap-6  md:grid-cols-2">
-                <x-form.text value="" formname="aktiva" label="Nilai Aktiva Terakhir (Rp.)" name="nilai_aktiva" placeholder="Rp.*****"  messageerror="Nilai Aktiva Terakhir Belum Diisi"></x-form.text>
-                <x-form.text value="" formname="kondisi" label="Kondisi Mesin (1-100%)" name="kondisi_mesin" placeholder="Masukkan Kondisi Mesin"  messageerror="Kondisi Mesin Mesin Belum Diisi"></x-form.text>
+                <x-form.text value=""   label="Nilai Aktiva Terakhir (Rp.)" name="nilai_aktiva" placeholder="Rp.*****"   ></x-form.text>
+                <x-form.text value=""   label="Kondisi Mesin (1-100%)" name="kondisi_mesin" placeholder="Masukkan Kondisi Mesin"   ></x-form.text>
                   
             </div>
             <div class="grid gap-6  md:grid-cols-2">
@@ -73,12 +76,13 @@
                         @foreach ($category as $item)
                             <option value="{{ $item->id }}">{{ $item->category }}</option>
                         @endforeach
+                        @error('category_id')
+                        <span class="text-red-500 text-sm">{{$message}}</span>
+                         @enderror
                     </select>
                 </div>
             </div>
-            <div class=""><button type="submit"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-            </div>
+            <x-form.button></x-form.button>
         </form>
 
     </div>

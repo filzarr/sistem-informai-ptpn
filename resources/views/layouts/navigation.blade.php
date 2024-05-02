@@ -12,6 +12,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    @if (auth()->user()->role_user == 1)
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                        {{ __('Manajemen Pengguna') }}
+                    </x-nav-link>
+                    @endif
+                    @if (auth()->user()->role_user == 3)
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -21,15 +30,35 @@
                     <x-nav-link :href="route('data-minyak-sawit')" :active="request()->routeIs('data-minyak-sawit')">
                         {{ __('Data Minyak Sawit') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('data-inti-sawit')" :active="request()->routeIs('data-inti-sawit')">
+                    <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
                         {{ __('Laporan Harian') }}
                     </x-nav-link>
                     <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
                         {{ __('Analisa Data Sawit') }}
                     </x-nav-link>
+                    @endif
+                    @if (auth()->user()->role_user == 2 or auth()->user()->role_user == 4 )
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('inventaris')" :active="request()->routeIs('inventaris')">
+                        {{ __('Data Inventaris') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('tandan-buah')" :active="request()->routeIs('tandan-buah')">
+                        {{ __('Tanda Buah') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
+                        {{ __('Laporan Harian') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
+                        {{ __('Analisa CPO Produksi') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
                         {{ __('Manajemen Pengguna') }}
                     </x-nav-link>
+                    @endif
+                   
+                    
                 </div>
             </div>
 

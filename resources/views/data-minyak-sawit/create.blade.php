@@ -31,11 +31,11 @@
         <header class=" flex justify-center">
             <h3 class=" text-lg font-semibold text-gray-800">Tambah Data Minyak Sawit PTPN IV GUNUNG BANYU</h3>
         </header>
-        <form class="grid gap-5 mt-5 w-1/2">
+        <form class="grid gap-5 mt-5 w-1/2" method="POST" action="{{url('/data-minyak-sawit')}}">
+            @csrf
             <div class="mb-5 grid">
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan
-                    Stok</label>
-                <input type="hidden" id="first_name">
+                    Stok</label> 
                 <div class="flex">
                     <div class=" w-full">
                         <input type="number" id="currency-input"
@@ -76,16 +76,16 @@
             <div class="mb-5">
                 <label for="countries"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
                     Kategori</label>
-                <select id="countries" name=""
+                <select id="countries" name="type"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected disabled>Pilih</option>
-                    <option value="US">Stok Masuk</option>
-                    <option value="CA">Pengiriman</option>
+                    <option value="stok-masuk">Stok Masuk</option>
+                    <option value="stok-keluar">Pengiriman</option>
                 </select>
             </div>
             <div class="mb-5">
                 <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan Keterangan</label>
-                <textarea id="message" rows="4"
+                <textarea id="message" rows="4" name="keterangan"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Masukkan Keterangan....."></textarea>
             </div>

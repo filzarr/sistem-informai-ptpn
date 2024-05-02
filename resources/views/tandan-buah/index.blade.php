@@ -10,14 +10,13 @@
                             <path
                                 d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                         </svg>
-                        Data Inventaris
+                        Data Tandan Buah Masuk
                     </a>
                 </li>
 
             </ol>
         </nav>
     </x-slot>
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
         @if (\Session::has('success'))
             <x-alerts.succes>{!! \Session::get('success') !!}</x-alerts.succes>
@@ -28,9 +27,8 @@
         @if (\Session::has('danger'))
             <x-alerts.danger>{!! \Session::get('danger') !!}</x-alerts.danger>
         @endif
-
-        <header class=" flex justify-center">
-            <h3 class=" text-lg font-semibold text-gray-800">Data Inventaris PTPN IV GUNUNG BANYU</h3>
+        <header class=" flex justify-center mt-7">
+            <h3 class=" text-lg font-semibold text-gray-800">Data Tandan Buah</h3>
         </header>
         <div class="grid mt-10">
 
@@ -40,18 +38,7 @@
                         class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                         type="button">
 
-                        Pilih Kategori
-                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button">
-
-                        Pilih Kondisi Mesin
+                        Urutkan
                         <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,20 +47,10 @@
                     </button>
                 </div>
                 <div class="flex ">
-                    <a href="/export/inventaris">
-                        <button type="button"
-                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
-                            Excel</button>
-                    </a>
-                    <a href="/inventaris/category/create">
-                        <button type="button"
-                            class="text-white  bg-amber-600  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
-                            Tambah Kategori Mesin</button>
-                    </a>
-                    <a href="/inventaris/create">
+                    <a href="/tandan-buah/create">
                         <button type="button"
                             class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
-                            Inventaris</button>
+                            Data</button>
                     </a>
                 </div>
             </div>
@@ -82,97 +59,52 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-
                         <tr>
                             <th width="5%" class=" text-center px-6 py-3">
                                 No.
                             </th>
-                            @if (auth()->user()->role_user == 3 or auth()->user()->role_user == 4)
+                            <th width="5%" class=" text-center px-6 py-3">
+                                Tanggal
+                            </th>
                             <th scope="col" class=" text-center px-6 py-3">
-                                Nama Penginput
+                                Panen Masuk (Kg)
                             </th>
-                            @endif
                             <th scope="col" class=" text-center px-6 py-3">
-                                Nama Mesin/Peralatan
+                                TBS Di olah (Kg)
                             </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Penomoran Mesin/Instalasi
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Merek
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Type/Jenis/Spesifikasi Teknis
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Kapasitas Mesin
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Tahun Perolehan
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                No. Inventaris /No. Aset
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Nilai Aktiva
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
+                            <th scope="col" class=" text-center px-6 py-3">
                                 Kategori
                             </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
-                                Kondisi Mesin
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-center ">
+                            <th scope="col" class=" text-center px-6 py-3">
                                 Action
                             </th>
+
+
 
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($inventaris as $item)
+                        @forelse ($tandanbuah as $item)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row" class="px-6 py-4 text-center ">
                                     {{ $loop->iteration }}
                                 </th>
-                                @if (auth()->user()->role_user == 2 or auth()->user()->role_user == 4)
-                                <th scope="col" class=" text-center px-6 py-3">
-                                    {{$item->name}}
-                                </th>
-                                @endif
                                 <th
                                     class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
-                                    {{ $item->nama }}
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->tanggal)->format('d-m-Y ') }}
                                 </th>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->nomor_mesin }}
+                                <td class="px-6 py-4 text-center text-gray-900">
+                                    {{ $item->panen_masuk }}
                                 </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->merek }}
+                                <td class="px-6 py-4 text-center text-gray-900 ">
+                                    {{ $item->tbs_diolah }}
                                 </td>
-                                <td class=" text-center px-6 py-4">
-                                    {{ $item->type }}
-                                </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->kapasitas }}
-                                </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->tahun_perolehan }}
-                                </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->nomor_inventaris }}
-                                </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->nilai_aktiva }}
-                                </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->category }}
-                                </td>
-                                <td class="px-6 py-4 text-center ">
-                                    {{ $item->kondisi_mesin }}
+                                <td class="px-6 py-4 text-center text-gray-900 ">
+                                    {{ $item->kategori }}
                                 </td>
                                 <td class="  py-4 text-center flex gap-3 items-center align-middle justify-center">
-                                    <a href="/inventaris/{{ $item->id }}/edit">
+                                    <a href="/tandan-buah/{{ $item->id }}/edit">
                                         <iconify-icon icon="mdi:pencil-box" width="30" height="30"
                                             style="color: #ffd500"></iconify-icon>
                                     </a>
@@ -186,8 +118,8 @@
                              
                                 </td>
 
+
                             </tr>
-                         
                             <div id="{{ $item->id }}" tabindex="-1"
                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                            
@@ -217,7 +149,7 @@
                                                 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                 Apakah Anda Yakin Ingin Menghapus Data</h3>
                                             <form
-                                                action="{{ route('inventaris.destroy', ['inventari' => $item->id]) }}"
+                                                action="{{ route('tandan-buah.destroy', ['tandan_buah' => $item->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -236,20 +168,23 @@
                                 </div>
                             </div> 
                         @empty
-                            <tr>
-                                <td colspan="100%" class=" text-center font-light text-gray-500">Data Belum Ada</td>
+                            <tr
+                                class="bg-white border-b text-center dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" colspan="100%" class="px-6 py-4 text-center ">
+                                    Tidak Ada Data
+                                </th>
+                                 
+
+
                             </tr>
                         @endforelse
 
 
                     </tbody>
                 </table>
-               
+                {{$tandanbuah->links()}}
             </div>
-            <div class="flex justify-end mt-3">
-                {{$inventaris->links()}}
-            </div>
+
         </div>
     </div>
-
 </x-app-layout>

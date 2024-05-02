@@ -24,15 +24,15 @@
                 <iconify-icon class="text-3xl" icon="icon-park-solid:data" style="color: #0ac2ff"></iconify-icon>
                 <div class="grid">
                     <h3 class=" font-semibold text-gray-600">Jumlah Inventaris</h3>
-                    <span class="text-sm font-semibold text-gray-500">50</span>
+                    <span class="text-sm font-semibold text-gray-500">{{ $inventaris }}</span>
                 </div>
             </div>
             <div
                 class="flex items-center gap-5  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <iconify-icon class="text-3xl" icon="emojione-monotone:oil-drum" style="color: #fff700"></iconify-icon>
                 <div class="grid">
-                    <h3 class=" font-semibold text-gray-600">Produksi Minyak Sawit Hari Ini</h3>
-                    <span class="text-sm font-semibold text-gray-500">Belum Ada</span>
+                    <h3 class=" font-semibold text-gray-600">Tandan Buah Masuk Kebun Gunung Banyu</h3>
+                    <span class="text-sm font-semibold text-gray-500">{{ $stokmasuk }}</span>
                 </div>
             </div>
             <div
@@ -40,65 +40,165 @@
                 <iconify-icon class="text-3xl" icon="material-symbols:oil-barrel-rounded"
                     style="color: #3700ff"></iconify-icon>
                 <div class="grid">
-                    <h3 class=" font-semibold text-gray-600">Rendemen Minyak Sawit Hari Ini</h3>
-                    <span class="text-sm font-semibold text-gray-500">Belum Ada</span>
+                    <h3 class=" font-semibold text-gray-600">Tandan Buah Masuk Pihak Ketiga</h3>
+                    <span class="text-sm font-semibold text-gray-500">{{ $stokkeluar }}</span>
                 </div>
             </div>
             <div
                 class="flex items-center gap-5  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <iconify-icon class="text-3xl" icon="maki:industry" style="color: #f20707"></iconify-icon>
                 <div class="grid">
-                    <h3 class=" font-semibold text-gray-600">Produksi TBS Hari Ini</h3>
-                    <span class="text-sm font-semibold text-gray-500">Belum Ada</span>
+                    <h3 class=" font-semibold text-gray-600">Jumlah Pengguna</h3>
+                    <span class="text-sm font-semibold text-gray-500">{{ $stok->stok }}</span>
                 </div>
             </div>
         </div>
         <div class="grid grid-cols-5 gap-5">
-          <div class="col-span-2 flex ">
-            <div class=" w-full ">
-              <div class="w-full py-5 bg-white rounded-lg shadow mt-10 dark:bg-gray-800  ">
-                  <div class=" ">
-                      <canvas id="myChart"></canvas>
-                  </div>
-                  <div
-                      class="grid grid-cols-1   items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2.5">
-                      <div class="pt-5 ps-3">
-                          <a href="#"
-                              class=" px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                              <svg class="w-3.5 h-3.5 text-white me-2 rtl:rotate-180" aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                                  <path
-                                      d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-3 15H4.828a1 1 0 0 1 0-2h6.238a1 1 0 0 1 0 2Zm0-4H4.828a1 1 0 0 1 0-2h6.238a1 1 0 1 1 0 2Z" />
-                                  <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
-                              </svg>
-                              View full report
-                          </a>
-                      </div>
-                  </div>
-              </div>
+            <div class="col-span-2 flex ">
+                <div class=" w-full ">
+                    <div class="w-full py-5 bg-white rounded-lg shadow mt-10 dark:bg-gray-800  ">
+                        <div class=" ">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                        <div
+                            class="grid grid-cols-1   items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2.5">
+                            <div class="pt-5 ps-3">
+                                <a href="/tandan-buah"
+                                    class=" px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg class="w-3.5 h-3.5 text-white me-2 rtl:rotate-180" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                                        <path
+                                            d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-3 15H4.828a1 1 0 0 1 0-2h6.238a1 1 0 0 1 0 2Zm0-4H4.828a1 1 0 0 1 0-2h6.238a1 1 0 1 1 0 2Z" />
+                                        <path
+                                            d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                                    </svg>
+                                    View full report
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class=" w-full bg-white rounded-lg col-span-3 shadow mt-10 dark:bg-gray-800 p-4 md:p-6">
-              <div class="  ">
-                  <canvas id="chartair"></canvas>
-              </div>
-              <div
-                  class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2.5">
-                  <div class="pt-5">
-                      <a href="#"
-                          class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                          <svg class="w-3.5 h-3.5 text-white me-2 rtl:rotate-180" aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                              <path
-                                  d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-3 15H4.828a1 1 0 0 1 0-2h6.238a1 1 0 0 1 0 2Zm0-4H4.828a1 1 0 0 1 0-2h6.238a1 1 0 1 1 0 2Z" />
-                              <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
-                          </svg>
-                          View full report
-                      </a>
-                  </div>
-              </div>
-          </div>
+            <div class=" w-full bg-white rounded-lg col-span-3 shadow mt-10 dark:bg-gray-800 p-4 md:p-6">
+                <div class="  ">
+                    <canvas id="chartair"></canvas>
+                </div>
+                <div
+                    class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2.5">
+                    <div class="pt-5">
+                        <a href="/analisa"
+                            class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="w-3.5 h-3.5 text-white me-2 rtl:rotate-180" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                                <path
+                                    d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-3 15H4.828a1 1 0 0 1 0-2h6.238a1 1 0 0 1 0 2Zm0-4H4.828a1 1 0 0 1 0-2h6.238a1 1 0 1 1 0 2Z" />
+                                <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                            </svg>
+                            View full report
+                        </a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
+    <script>
+        const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+            'November', 'Desember'
+        ]
+        const ctx = document.getElementById('myChart');
+        const labels = [
+            @foreach ($datastokbulanan as $item)
+                bulan[{{ (int) $item->month - 1 }}],
+            @endforeach
+        ];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Data Stok Masuk Minyak Sawit',
+                data: [
+                    @foreach ($datastokbulanan as $item)
+                        {{$item->total}},
+                    @endforeach 
+                ],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        };
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        const cartair = document.getElementById('chartair');
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart'
+                    }
+                }
+            },
+        };
+        const labelsair = [
+            @foreach ($analisa as $item)
+                '{{ $item->jam_analisa }}',
+            @endforeach
+        ];
+
+        const dataair = {
+            labels: labelsair,
+            datasets: [{
+                    label: 'Rata VM(%)',
+                    data: [
+
+                        @foreach ($analisa as $item)
+                            '{{ $item->rata_vm }}',
+                        @endforeach
+                    ],
+                },
+                {
+                    label: 'Rata FFA(%)',
+                    data: [
+                        @foreach ($analisa as $item)
+                            '{{ $item->rata_ffa }}',
+                        @endforeach
+                    ],
+                },
+                {
+                    label: 'Rata NOS(%)',
+                    data: [
+                        @foreach ($analisa as $item)
+                            '{{ $item->rata_nos }}',
+                        @endforeach
+                    ],
+                }
+            ]
+        };
+        new Chart(cartair, {
+            type: 'line',
+            data: dataair,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </x-app-layout>

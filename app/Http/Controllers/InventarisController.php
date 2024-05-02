@@ -14,8 +14,9 @@ class InventarisController extends Controller
     public function index()
     {
         $inventaris = inventaris::join('category_inventaris', 'inventaris.category_id', '=', 'category_inventaris.id')
-        ->select('inventaris.*', 'category_inventaris.category') // Pilih semua kolom dari tabel inventaris
-        ->get();
+        ->join('users', 'inventaris.user_id', '=', 'users.id')
+        ->select('inventaris.*', 'category_inventaris.category','users.name') // Pilih semua kolom dari tabel inventaris
+        ->paginate(10);
         // dd($inventaris);
         return view('inventaris.index', compact('inventaris'));
     }
@@ -45,6 +46,17 @@ class InventarisController extends Controller
             'nilai_aktiva' => 'required',
             'kondisi_mesin' => 'required',
             'category_id' => 'required',
+        ],[
+            'nama.required' => 'Nama Harus Diisi',
+            'nomor_mesin.required' => 'Nomor Mesin Harus Diisi',
+            'merek.required' => 'Merek Harus Diisi',
+            'tahun_perolehan.required' => 'Tahun Perolehan Harus Diisi',
+            'type.required' => 'Type Harus Diisi',
+            'kapasitas.required' => 'Kapasitas Harus Diisi',
+            'nomor_inventaris.required' => 'Nomor Inventaris Tidak Boloh Kosong',
+            'nilai_aktiva.required' => 'Nilai Aktiva Harus diisi',
+            'kondisi_mesin.required' => 'Kondisi Mesin Harus Diisi',
+            'category_id.required' => 'Kategori Harus Dipilih',
         ]);
         $validateddata['user_id'] = Auth::id(); 
         // dd($validateddata);
@@ -87,6 +99,17 @@ class InventarisController extends Controller
             'nilai_aktiva' => '',
             'kondisi_mesin' => '',
             'category_id' => 'required',
+        ],[
+            'nama.required' => 'Nama Harus Diisi',
+            'nomor_mesin.required' => 'Nomor Mesin Harus Diisi',
+            'merek.required' => 'Merek Harus Diisi',
+            'tahun_perolehan.required' => 'Tahun Perolehan Harus Diisi',
+            'type.required' => 'Type Harus Diisi',
+            'kapasitas.required' => 'Kapasitas Harus Diisi',
+            'nomor_inventaris.required' => 'Nomor Inventaris Tidak Boloh Kosong',
+            'nilai_aktiva.required' => 'Nilai Aktiva Harus diisi',
+            'kondisi_mesin.required' => 'Kondisi Mesin Harus Diisi',
+            'category_id.required' => 'Kategori Harus Dipilih',
         ]);
         $inventaris = inventaris::find($id);
         $validateddata['user_id'] = Auth::id(); 

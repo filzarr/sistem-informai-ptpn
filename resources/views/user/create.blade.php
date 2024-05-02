@@ -36,12 +36,12 @@
         <form class="grid gap-5 mt-5" method="POST" action="{{ url('/user') }}">
             @csrf
             <div class="grid gap-6  md:grid-cols-2">
-                <x-form.text value="" formname="nip" label="NIP" name="nip"
-                    placeholder="Masukkan NIP" messageerror="NIP Belum Diisi"></x-form.text>
-                <x-form.text value="" formname="nama" label="Nama Lengkap" name="name"
-                    placeholder="Masukkan Nama Lengkap" messageerror="Nama Belum Diisi"></x-form.text>
-                <x-form.text value="" formname="email" label="Email" name="email"
-                    placeholder="Masukkan Email" messageerror="Email Belum Diisi"></x-form.text> 
+                <x-form.text value=""  label="NIP" name="nip"
+                    placeholder="Masukkan NIP"  ></x-form.text>
+                <x-form.text value=""   label="Nama Lengkap" name="name"
+                    placeholder="Masukkan Nama Lengkap"  ></x-form.text>
+                <x-form.text value=""   label="Email" name="email"
+                    placeholder="Masukkan Email"  ></x-form.text> 
                     <div class="">
                         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
                             Role User</label>
@@ -52,12 +52,13 @@
                             <option value="2">Direktur</option>
                             <option value="3">Operator</option> 
                         </select>
+                        @error('role_user')
+                        <span class="text-red-500 text-sm">{{$message}}</span>
+                        @enderror
                     </div>
             </div> 
 
-            <div class=""><button type="submit"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-            </div>
+            <x-form.button></x-form.button>
         </form>
 
     </div> 

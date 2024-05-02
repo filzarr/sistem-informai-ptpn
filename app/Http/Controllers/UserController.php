@@ -36,9 +36,16 @@ class UserController extends Controller
         // dd($request);
         $validateddata = $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'nip' => 'required',
+            'email' => 'required|unique:users',
+            'nip' => 'required|unique:users',
             'role_user' => 'required', 
+        ],[
+            'name.required' => 'Nama Harus Diisi',
+            'email.required' => 'Email Harus Diisi',
+            'email.unique' => 'Email Sudah Pernah Digunakan',
+            'nip.required' => 'NIP Harus Diisi',
+            'nip.unique' => 'NIP Sudah Pernah Digunakan',
+            'role_user.required' => 'Role User Harus Dipilih',
         ]);
         $password = Str::random(5);
         $validateddata['password'] = $password;

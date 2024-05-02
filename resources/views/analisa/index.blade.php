@@ -173,7 +173,9 @@
                     </tbody>
                 </table>
             </div>
-
+            <div class="flex justify-end mt-3">
+                {{$analisa->links()}}
+            </div>
         </div>
     </div>
 </x-app-layout>
