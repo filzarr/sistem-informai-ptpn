@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $bulanIni = Carbon::now()->month; // Mengambil bulan saat ini
         $tahunIni = Carbon::now()->year; // Mengambil tahun saat ini
 
-        $totalPanenMasuk = Tandanbuah::where('kategori', 'buah-kebun-banyu')
+    $totalPanenMasuk = Tandanbuah::where('kategori', 'buah-kebun-banyu')
             ->whereMonth('tanggal', $bulanIni)
             ->whereYear('tanggal', $tahunIni)
             ->sum('panen_masuk'); 
