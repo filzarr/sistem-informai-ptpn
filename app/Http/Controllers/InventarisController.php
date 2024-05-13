@@ -11,14 +11,22 @@ class InventarisController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $inventaris = inventaris::join('category_inventaris', 'inventaris.category_id', '=', 'category_inventaris.id')
-        ->join('users', 'inventaris.user_id', '=', 'users.id')
-        ->select('inventaris.*', 'category_inventaris.category','users.name') // Pilih semua kolom dari tabel inventaris
-        ->paginate(10);
+    public function index(Request $request)
+    { 
+        $inventaris = Inventaris::join('category_inventaris', 'inventaris.category_id', '=', 'category_inventaris.id')
+            ->join('users', 'inventaris.user_id', '=', 'users.id')
+            ->select('inventaris.*', 'category_inventaris.category', 'users.name'); // Pilih semua kolom dari tabel inventaris
+ 
+        if ($request->has('filter') or $request->query('filter') !== null ) {
+            $inventaris->where('inventaris.tahun_perolehan', 'LIKE' ,'%'.$request->query('filter').'%');
+        }
+        if ($request->has('sort')) {
+            $inventaris->orderByRaw("ISNULL(inventaris.tahun_perolehan), inventaris.tahun_perolehan ".$request->query('sort'));
+        }
+
+        $inventaris = $inventaris->paginate(10);
         // dd($inventaris);
-        return view('inventaris.index', compact('inventaris'));
+        return view('inventaris.index', compact('inventaris','request'));
     }
 
     /**

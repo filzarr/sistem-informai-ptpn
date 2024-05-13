@@ -45,7 +45,7 @@
                         {{ __('Data Inventaris') }}
                     </x-nav-link>
                     <x-nav-link :href="route('tandan-buah')" :active="request()->routeIs('tandan-buah')">
-                        {{ __('Tanda Buah') }}
+                        {{ __('Tandan Buah') }}
                     </x-nav-link>
                     <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
                         {{ __('Laporan Harian') }}

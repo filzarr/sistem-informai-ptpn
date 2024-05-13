@@ -32,7 +32,7 @@
                 <iconify-icon class="text-3xl" icon="emojione-monotone:oil-drum" style="color: #fff700"></iconify-icon>
                 <div class="grid">
                     <h3 class=" font-semibold text-gray-600">Tandan Buah Masuk Kebun Gunung Banyu</h3>
-                    <span class="text-sm font-semibold text-gray-500">{{ $stokmasuk }}</span>
+                    <span class="text-sm font-semibold text-gray-500">{{ $totalPanenMasuk }}</span>
                 </div>
             </div>
             <div
@@ -41,7 +41,7 @@
                     style="color: #3700ff"></iconify-icon>
                 <div class="grid">
                     <h3 class=" font-semibold text-gray-600">Tandan Buah Masuk Pihak Ketiga</h3>
-                    <span class="text-sm font-semibold text-gray-500">{{ $stokkeluar }}</span>
+                    <span class="text-sm font-semibold text-gray-500">{{$pihakketiga}}</span>
                 </div>
             </div>
             <div
@@ -49,7 +49,7 @@
                 <iconify-icon class="text-3xl" icon="maki:industry" style="color: #f20707"></iconify-icon>
                 <div class="grid">
                     <h3 class=" font-semibold text-gray-600">Jumlah Pengguna</h3>
-                    <span class="text-sm font-semibold text-gray-500">{{ $stok->stok }}</span>
+                    <span class="text-sm font-semibold text-gray-500">{{ $pengguna }}</span>
                 </div>
             </div>
         </div>
@@ -108,23 +108,36 @@
         ]
         const ctx = document.getElementById('myChart');
         const labels = [
-            @foreach ($datastokbulanan as $item)
+            @foreach ($panen as $item)
                 bulan[{{ (int) $item->month - 1 }}],
             @endforeach
         ];
         const data = {
             labels: labels,
-            datasets: [{
-                label: 'Data Stok Masuk Minyak Sawit',
+            datasets: [
+                {
+                label: 'Data Tandan Buah Kebun Banyu',
                 data: [
-                    @foreach ($datastokbulanan as $item)
+                    @foreach ($panen as $item)
                         {{$item->total}},
                     @endforeach 
                 ],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
-            }]
+            },
+                {
+                label: 'Data Tandan Pihak Ketiga',
+                data: [
+                    @foreach ($panenketiga as $item)
+                        {{$item->total}},
+                    @endforeach 
+                ],
+                fill: false,
+                borderColor: 'rgb(80, 80, 80)',
+                tension: 0.1
+            },
+        ]
         };
         new Chart(ctx, {
             type: 'line',

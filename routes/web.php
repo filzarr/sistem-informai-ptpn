@@ -29,18 +29,21 @@ Route::middleware('auth', 'active')->group(function () {
     Route::middleware('admin','su','direktur')->group(function () {
         Route::get('/user/{id}/active', [UserController::class, 'active']);
         Route::resource('user', UserController::class)->names(['index' => 'user']);
-        Route::get('/laporan-harian',[ExcelController::class, 'laporanharian'])->name('laporan-harian');
     }); 
     Route::middleware('operator','su','direktur')->group(function () {
+        Route::get('/export/laporan-harian',[ExcelController::class, 'laporanharian'])->name('export-laporan');
+
         Route::resource('inventaris', InventarisController::class)->names(['index' => 'inventaris']);
         Route::resource('data-minyak-sawit', DataMinyakSawitController::class)->names(['index' => 'data-minyak-sawit']);
         Route::resource('tandan-buah', TandanbuahController::class)->names(['index' => 'tandan-buah']);
         Route::resource('data-inti-sawit', DataMinyakIntiSawitController::class)->names(['index' => 'data-inti-sawit']);
+        Route::resource('laporan-harian', LaporanHarianController::class)->names(['index' => 'laporan-harian']);
         Route::resource('analisa', AnalisaSawitController::class)->names(['index' => 'analisa']);
         Route::get('/inventaris/category/create', [InventarisController::class, 'inventaris_create']);
         Route::post('/inventaris/category/create', [InventarisController::class, 'inventaris_create_submit']);
         Route::get('/export/inventaris', [ExcelController::class, 'inventaris']);
         Route::get('/export/analisa', [ExcelController::class, 'analisasawit']);
+        Route::get('/export/tandan-buah', [ExcelController::class, 'tandanbuah']);
     });
     Route::middleware('operator','su','direktur','admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -49,7 +52,8 @@ Route::middleware('auth', 'active')->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     }); 
 });
-Route::get('/', function(){
-    return redirect('/login');
+Route::get('/', function(){  
+
+    require redirect('/login');
 });
 require __DIR__.'/auth.php';

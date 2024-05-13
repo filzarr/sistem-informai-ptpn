@@ -11,10 +11,18 @@ class AnalisaSawitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     { 
-        $analisa = Analisasawit::paginate(15);
-        return view('analisa.index', compact('analisa'));
+        $analisa = Analisasawit::select('*');
+        if ($request->has('filter') or $request->query('filter') !== null ) {
+            $analisa->whereYear('waktu_analisis', 'like'  ,'%'.$request->query('filter').'%' );
+        }
+        if ($request->has('sort')) {
+            $analisa->orderBy('waktu_analisis',$request->query('sort'));
+        }
+        
+        $analisa = $analisa->paginate(15);
+        return view('analisa.index', compact('analisa','request'));
     }
 
     /**

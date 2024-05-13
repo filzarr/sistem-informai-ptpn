@@ -2,104 +2,99 @@
 
 namespace App\Exports;
 
+use DB;
+use Carbon\carbon;  
+use App\Models\Laporanharian as lh;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\FromView;
-use Illuminate\Contracts\View\View;
-use Carbon\carbon;
-use App\Models\Ketstokminyak;
-use App\Models\Analisasawit;
-use DB;
+
 class Laporanharian implements FromView, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
     */
+    public $tanggal;
+    public function __construct(string $tanggal){ 
+        $this->tanggal = $tanggal;
+    }
     public function view(): View{ 
-        $stokmasukhari = Ketstokminyak::whereDate('created_at', now()->toDateString())
-        ->whereColumn('stoksebelumnya', '<', 'stoksetelahnya')
-        ->sum(DB::raw('stoksetelahnya - stoksebelumnya'));
-        $stokkeluarhari = Ketstokminyak::whereDate('created_at', now()->toDateString())
-        ->whereColumn('stoksebelumnya', '>', 'stoksetelahnya')
-        ->sum(DB::raw('stoksebelumnya - stoksetelahnya'));
-        $tanggalAwalBulan = Carbon::now()->startOfMonth();
-
-// Mendapatkan tanggal akhir bulan ini
-$tanggalAkhirBulan = Carbon::now()->endOfMonth();
-
-// Mendapatkan tanggal awal tahun ini
-$tanggalAwalTahun = Carbon::now()->startOfYear();
-
-// Mendapatkan tanggal akhir tahun ini
-$tanggalAkhirTahun = Carbon::now()->endOfYear();
-
-// Menghitung stok masuk sepanjang bulan ini
-$stokMasukBulanIni = Ketstokminyak::whereDate('created_at', '>=', $tanggalAwalBulan)
-    ->whereDate('created_at', '<=', $tanggalAkhirBulan)
-    ->whereColumn('stoksebelumnya', '<', 'stoksetelahnya')
-    ->sum(DB::raw('stoksetelahnya - stoksebelumnya'));
-
-// Menghitung stok keluar sepanjang bulan ini
-$stokKeluarBulanIni = Ketstokminyak::whereDate('created_at', '>=', $tanggalAwalBulan)
-    ->whereDate('created_at', '<=', $tanggalAkhirBulan)
-    ->whereColumn('stoksebelumnya', '>', 'stoksetelahnya')
-    ->sum(DB::raw('stoksebelumnya - stoksetelahnya'));
-
-// Menghitung stok masuk sepanjang tahun ini
-$stokMasukTahunIni = Ketstokminyak::whereDate('created_at', '>=', $tanggalAwalTahun)
-    ->whereDate('created_at', '<=', $tanggalAkhirTahun)
-    ->whereColumn('stoksebelumnya', '<', 'stoksetelahnya')
-    ->sum(DB::raw('stoksetelahnya - stoksebelumnya'));
-
-// Menghitung stok keluar sepanjang tahun ini
-$stokKeluarTahunIni = Ketstokminyak::whereDate('created_at', '>=', $tanggalAwalTahun)
-    ->whereDate('created_at', '<=', $tanggalAkhirTahun)
-    ->whereColumn('stoksebelumnya', '>', 'stoksetelahnya')
-    ->sum(DB::raw('stoksebelumnya - stoksetelahnya')); 
-    $tanggal_hari_ini = Carbon::now()->toDateString();
-    $awal_bulan_ini = Carbon::now()->startOfMonth()->toDateString();
-
-// Mendapatkan akhir bulan ini
-$akhir_bulan_ini = Carbon::now()->endOfMonth()->toDateString();
-$awal_tahun_ini = Carbon::now()->startOfYear()->toDateString();
-
-// Mendapatkan akhir tahun ini
-$akhir_tahun_ini = Carbon::now()->endOfYear()->toDateString();
-
-// Query untuk mencari rata-rata hari ini
-$data_hari_ini = Analisasawit::select(
-        DB::raw('DATE(waktu_analisis) AS hari_analisa'),
-        DB::raw('HOUR(waktu_analisis) AS jam_analisa'),
-        DB::raw('AVG(vm) AS rata_vm'),
-        DB::raw('AVG(nos) AS rata_nos'),
-        DB::raw('AVG(ffa) AS rata_ffa'),
-        DB::raw('AVG(dobi) AS rata_dobi')
-    )
-    ->whereDate('waktu_analisis', $tanggal_hari_ini)
-    ->groupBy(DB::raw('DATE(waktu_analisis)'), DB::raw('HOUR(waktu_analisis)'))
-    ->get();
-    $data_bulan_ini = Analisasawit::select(
-        DB::raw('DATE(waktu_analisis) AS hari_analisa'),
-        DB::raw('HOUR(waktu_analisis) AS jam_analisa'),
-        DB::raw('AVG(vm) AS rata_vm'),
-        DB::raw('AVG(nos) AS rata_nos'),
-        DB::raw('AVG(ffa) AS rata_ffa'),
-        DB::raw('AVG(dobi) AS rata_dobi')
-    )
-    ->whereBetween('waktu_analisis', [$awal_bulan_ini, $akhir_bulan_ini])
-    ->groupBy(DB::raw('DATE(waktu_analisis)'), DB::raw('HOUR(waktu_analisis)'))
-    ->get();
-    $data_tahun_ini = Analisasawit::select(
-        DB::raw('DATE(waktu_analisis) AS hari_analisa'),
-        DB::raw('HOUR(waktu_analisis) AS jam_analisa'),
-        DB::raw('AVG(vm) AS rata_vm'),
-        DB::raw('AVG(nos) AS rata_nos'),
-        DB::raw('AVG(ffa) AS rata_ffa'),
-        DB::raw('AVG(dobi) AS rata_dobi')
-    )
-    ->whereBetween('waktu_analisis', [$awal_tahun_ini, $akhir_tahun_ini])
-    ->groupBy(DB::raw('DATE(waktu_analisis)'), DB::raw('HOUR(waktu_analisis)'))
-    ->get();
-        return view('excel.laporanharian', compact('stokmasukhari','stokkeluarhari','stokMasukBulanIni','stokKeluarBulanIni','stokMasukTahunIni','stokKeluarTahunIni','data_hari_ini','data_bulan_ini','data_tahun_ini'));
+        // dd($this->tanggal); 
+        $tanggal = $this->tanggal;
+        $bulanreq = Carbon::createFromFormat('Y-m-d H:i', $this->tanggal)->format('m');
+        $tahunreq = Carbon::createFromFormat('Y-m-d H:i', $this->tanggal)->format('Y'); 
+        // dd($tahunreq);
+        // hari
+        $hari = lh::select('ptpn',
+            DB::raw('sum(realisasi_tbs)'),
+            DB::raw('sum(rkap_tbs)'),
+            DB::raw('sum(tbs_olah)'),
+            DB::raw('sum(sisa_tbs)'),
+            DB::raw('sum(realisasi_minyaksawit)'),
+            DB::raw('sum(rkap_minyaksawit)'),
+            DB::raw('sum(realisasi_intisawit)'),
+            DB::raw('sum(rkap_intisawit)'),
+            DB::raw('sum(realisasi_rendemen)'),
+            DB::raw('sum(rkap_rendemen)'),
+            DB::raw('sum(realisasi_rendemen_inti)'),
+            DB::raw('sum(rkap_rendemen_inti)'),
+            DB::raw('sum(pengiriman_minyaksawit)'),
+            DB::raw('sum(pengiriman_intisawit)'),
+            DB::raw('sum(pengiriman_cangkang)'), 
+        )
+        ->whereDate('tanggal', $this->tanggal)
+        ->groupBy('ptpn')
+        ->orderBy('ptpn')
+        ->get();
+        // bulan
+        $bulan = lh::select('ptpn',
+            DB::raw('sum(realisasi_tbs)'),
+            DB::raw('sum(rkap_tbs)'),
+            DB::raw('sum(tbs_olah)'),
+            DB::raw('sum(sisa_tbs)'),
+            DB::raw('sum(realisasi_minyaksawit)'),
+            DB::raw('sum(rkap_minyaksawit)'),
+            DB::raw('sum(realisasi_intisawit)'),
+            DB::raw('sum(rkap_intisawit)'),
+            DB::raw('sum(realisasi_rendemen)'),
+            DB::raw('sum(rkap_rendemen)'),
+            DB::raw('sum(realisasi_rendemen_inti)'),
+            DB::raw('sum(rkap_rendemen_inti)'),
+            DB::raw('sum(pengiriman_minyaksawit)'),
+            DB::raw('sum(pengiriman_intisawit)'),
+            DB::raw('sum(pengiriman_cangkang)'), 
+        )
+        ->whereMonth('tanggal', $bulanreq)
+        ->whereYear('tanggal', $tahunreq)
+        ->groupBy('ptpn')
+        ->orderBy('ptpn')
+        ->get();
+        $tahun = lh::select('ptpn',
+            DB::raw('sum(realisasi_tbs)'),
+            DB::raw('sum(rkap_tbs)'),
+            DB::raw('sum(tbs_olah)'),
+            DB::raw('sum(sisa_tbs)'),
+            DB::raw('sum(realisasi_minyaksawit)'),
+            DB::raw('sum(rkap_minyaksawit)'),
+            DB::raw('sum(realisasi_intisawit)'),
+            DB::raw('sum(rkap_intisawit)'),
+            DB::raw('sum(realisasi_rendemen)'),
+            DB::raw('sum(rkap_rendemen)'),
+            DB::raw('sum(realisasi_rendemen_inti)'),
+            DB::raw('sum(rkap_rendemen_inti)'),
+            DB::raw('sum(pengiriman_minyaksawit)'),
+            DB::raw('sum(pengiriman_intisawit)'),
+            DB::raw('sum(pengiriman_cangkang)'), 
+        ) 
+        ->whereYear('tanggal', $tahunreq)
+        ->groupBy('ptpn')
+        ->orderBy('ptpn')
+        ->get();
+        // dd($hari);
+        return view('excel.laporanharian' , compact('hari','tahun','bulan','tanggal') );
     }
 }
+
+
+

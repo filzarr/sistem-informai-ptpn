@@ -47,7 +47,7 @@
                     </button>
                 </div>
                 <div class="flex ">
-                    <a href="/user/create">
+                    <a href="user/create">
                         <button type="button"
                             class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
                             Pengguna</button>
@@ -197,7 +197,7 @@
                                                     class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                     Apakah Anda Yakin Ingin Menonaktifkan/Mengaktifkan Pengguna</h3>
                                                     
-                                                    <a href="/user/{{ $item->id }}/active"
+                                                    <a href="user/{{ $item->id }}/active"
                                                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                                         Iya
                                                     </a> 

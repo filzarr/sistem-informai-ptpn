@@ -11,7 +11,7 @@ use App\Models\Analisasawit;
 use DB;
 class AllanalisaExport implements FromView, ShouldAutoSize,WithTitle{
     public function view(): View{
-        $data = Analisasawit::get();
+        $data = Analisasawit::orderBy('waktu_analisis', 'desc')->get();
         return view('excel.allanalisa', compact('data'));
     }
     public function title(): string

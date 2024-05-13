@@ -34,23 +34,61 @@
 
             <div class="flex  justify-between">
                 <div class="">
-                    <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button">
+                    @php
+                        $filter = [
+                            [
+                                'value' => '',
+                                'label' => 'Semua',
+                            ],
+                            [
+                                'value' => '2024',
+                                'label' => '2024',
+                            ],
+                            [
+                                'value' => '2023',
+                                'label' => '2023',
+                            ],
+                            [
+                                'value' => '2022',
+                                'label' => '2022',
+                            ],
+                            [
+                                'value' => '2021',
+                                'label' => '2021',
+                            ],
+                            [
+                                'value' => '2020',
+                                'label' => '2020',
+                            ],
+                            [
+                                'value' => '2019',
+                                'label' => '2019',
+                            ],
+                        ];
+                        $urut = [
+                            [
+                                'value' => 'desc',
+                                'label' => 'Terbaru',
+                            ],
+                            [
+                                'value' => 'asc',
+                                'label' => 'Terlama',
+                            ],
+                        ];
+                    @endphp
+                    <form method="GET" class="flex gap-3">
+                        <x-form.filter :option="$filter" label="Pilih Tahun" name="filter"
+                            request="{{ $request->query('filter') }}"></x-form.filter>
+                        <x-form.filter :option="$urut" label="Urutkan" name="sort"
+                            request="{{ $request->query('sort') }}"></x-form.filter>
 
-                        Urutkan
-                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
+                    </form>
                 </div>
                 <div class="flex ">
                     <a href="export/analisa"
                         class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
                         Excel</a>
-                    <a href="/analisa/create"
+                    <a href="analisa/create"
                         class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
                         Analisa</a>
                 </div>
@@ -105,10 +143,7 @@
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->waktu_analisis)->format('d-m-Y H:i:s') }}Wib
                                 </td>
                                 <td class="  py-4 text-center flex gap-3 items-center align-middle justify-center">
-                                    <a href="/inventaris/{{ $item->id }}/edit">
-                                        <iconify-icon icon="mdi:pencil-box" width="30" height="30"
-                                            style="color: #ffd500"></iconify-icon>
-                                    </a>
+                                  
                                     <button data-modal-target="{{ $item->id }}" data-modal-toggle="{{ $item->id }}"
                                         class="block  "
                                         type="button">
@@ -174,7 +209,7 @@
                 </table>
             </div>
             <div class="flex justify-end mt-3">
-                {{$analisa->links()}}
+                {{$analisa->appends(request()->query())->links()}}
             </div>
         </div>
     </div>

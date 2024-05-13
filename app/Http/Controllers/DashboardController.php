@@ -7,17 +7,26 @@ use App\Models\inventaris;
 use App\Models\Ketstokminyak;
 use DB;
 use App\Models\Stokminyak;
+use App\Models\Tandanbuah;
 use App\Models\Analisasawit;
+use App\Models\User;
+use Carbon\carbon;
 class DashboardController extends Controller
 {
     public function index(){
         $inventaris = inventaris::get()->count();
-        $stokmasuk = Ketstokminyak::whereDate('created_at', now()->toDateString())
-        ->whereColumn('stoksebelumnya', '<', 'stoksetelahnya')
-        ->sum(DB::raw('stoksetelahnya - stoksebelumnya'));
-        $stokkeluar = Ketstokminyak::whereDate('created_at', now()->toDateString())
-        ->whereColumn('stoksebelumnya', '>', 'stoksetelahnya')
-        ->sum(DB::raw('stoksebelumnya - stoksetelahnya'));
+        $bulanIni = Carbon::now()->month; // Mengambil bulan saat ini
+        $tahunIni = Carbon::now()->year; // Mengambil tahun saat ini
+
+        $totalPanenMasuk = Tandanbuah::where('kategori', 'buah-kebun-banyu')
+            ->whereMonth('tanggal', $bulanIni)
+            ->whereYear('tanggal', $tahunIni)
+            ->sum('panen_masuk'); 
+        // dd($totalPanenMasuk);
+            $pihakketiga = Tandanbuah::where('kategori', 'pihak-ketiga')
+            ->whereMonth('tanggal', $bulanIni)
+            ->whereYear('tanggal', $tahunIni)
+            ->sum('panen_masuk'); 
         // dd($stokmasuk);
         $stok = Stokminyak::first();
         $analisa = Analisasawit::select( 
@@ -30,13 +39,19 @@ class DashboardController extends Controller
         ->whereDate('waktu_analisis', now()->toDateString())
         ->groupBy(DB::raw('DATE(waktu_analisis)'), DB::raw('HOUR(waktu_analisis)'))
         ->get();
-        $datastokbulanan = Ketstokminyak::whereYear('created_at', now()->year)
-        ->whereColumn('stoksebelumnya', '<', 'stoksetelahnya')
-        ->groupBy(DB::raw('MONTH(created_at)')) // Grouping berdasarkan bulan
-        ->selectRaw('MONTH(created_at) as month, SUM(stoksetelahnya - stoksebelumnya) as total')
+        $panen = Tandanbuah::whereYear('tanggal', now()->year)
+        ->where('kategori', 'buah-kebun-banyu') 
+        ->groupBy(DB::raw('MONTH(tanggal)')) // Grouping berdasarkan bulan
+        ->selectRaw('MONTH(tanggal) as month, SUM(panen_masuk) as total')
         ->get();
+        $panenketiga = Tandanbuah::whereYear('tanggal', now()->year)
+        ->where('kategori', 'pihak-ketiga') 
+        ->groupBy(DB::raw('MONTH(tanggal)')) // Grouping berdasarkan bulan
+        ->selectRaw('MONTH(tanggal) as month, SUM(panen_masuk) as total')
+        ->get();
+        $pengguna = User::get()->count();
     
         // dd($datastokbulanan);
-        return view('dashboard', compact('inventaris','stok', 'stokmasuk','stokkeluar','analisa','datastokbulanan'));
+        return view('dashboard', compact('inventaris','stok', 'totalPanenMasuk','pengguna' ,'pihakketiga','panenketiga' ,'analisa','panen'));
     }
 }

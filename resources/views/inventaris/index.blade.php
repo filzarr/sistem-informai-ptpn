@@ -36,41 +36,68 @@
 
             <div class="flex  justify-between">
                 <div class="">
-                    <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button">
+                    @php
+                        $filter = [
+                            [
+                                'value' => '',
+                                'label' => 'Semua',
+                            ],
+                            [
+                                'value' => '2024',
+                                'label' => '2024',
+                            ],
+                            [
+                                'value' => '2023',
+                                'label' => '2023',
+                            ],
+                            [
+                                'value' => '2022',
+                                'label' => '2022',
+                            ],
+                            [
+                                'value' => '2021',
+                                'label' => '2021',
+                            ],
+                            [
+                                'value' => '2020',
+                                'label' => '2020',
+                            ],
+                            [
+                                'value' => '2019',
+                                'label' => '2019',
+                            ],
+                        ];
+                        $urut = [
+                            [
+                                'value' => 'desc',
+                                'label' => 'Terbaru',
+                            ],
+                            [
+                                'value' => 'asc',
+                                'label' => 'Terlama',
+                            ],
+                        ];
+                    @endphp
+                    <form method="GET" class="flex gap-3">
+                        <x-form.filter :option="$filter" label="Pilih Tahun" name="filter"
+                            request="{{ $request->query('filter') }}"></x-form.filter>
+                        <x-form.filter :option="$urut" label="Urutkan" name="sort"
+                            request="{{ $request->query('sort') }}"></x-form.filter>
 
-                        Pilih Kategori
-                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button">
-
-                        Pilih Kondisi Mesin
-                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
+                    </form>
                 </div>
                 <div class="flex ">
-                    <a href="/export/inventaris">
+                    <a href="export/inventaris">
                         <button type="button"
                             class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Export
                             Excel</button>
                     </a>
-                    <a href="/inventaris/category/create">
+                    <a href="inventaris/category/create">
                         <button type="button"
                             class="text-white  bg-amber-600  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
                             Tambah Kategori Mesin</button>
                     </a>
-                    <a href="/inventaris/create">
+                    <a href="inventaris/create">
                         <button type="button"
                             class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2">Tambah
                             Inventaris</button>
@@ -88,9 +115,9 @@
                                 No.
                             </th>
                             @if (auth()->user()->role_user == 3 or auth()->user()->role_user == 4)
-                            <th scope="col" class=" text-center px-6 py-3">
-                                Nama Penginput
-                            </th>
+                                <th scope="col" class=" text-center px-6 py-3">
+                                    Nama Penginput
+                                </th>
                             @endif
                             <th scope="col" class=" text-center px-6 py-3">
                                 Nama Mesin/Peralatan
@@ -136,9 +163,9 @@
                                     {{ $loop->iteration }}
                                 </th>
                                 @if (auth()->user()->role_user == 2 or auth()->user()->role_user == 4)
-                                <th scope="col" class=" text-center px-6 py-3">
-                                    {{$item->name}}
-                                </th>
+                                    <th scope="col" class=" text-center px-6 py-3">
+                                        {{ $item->name }}
+                                    </th>
                                 @endif
                                 <th
                                     class="px-6 py-4 font-medium text-gray-900 text-center  whitespace-nowrap dark:text-white">
@@ -176,21 +203,20 @@
                                         <iconify-icon icon="mdi:pencil-box" width="30" height="30"
                                             style="color: #ffd500"></iconify-icon>
                                     </a>
-                                    <button data-modal-target="{{ $item->id }}" data-modal-toggle="{{ $item->id }}"
-                                        class="block  "
-                                        type="button">
+                                    <button data-modal-target="{{ $item->id }}"
+                                        data-modal-toggle="{{ $item->id }}" class="block  " type="button">
                                         <iconify-icon icon="pepicons-pop:trash-circle-filled" width="24"
                                             height="24" style="color: #d10000"></iconify-icon>
                                     </button>
 
-                             
+
                                 </td>
 
                             </tr>
-                         
+
                             <div id="{{ $item->id }}" tabindex="-1"
                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                           
+
                                 <div class="relative p-4 w-full max-w-md max-h-full  ">
                                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                         <button type="button"
@@ -207,14 +233,13 @@
                                         </button>
                                         <div class="p-4 md:p-5 text-center">
                                             <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 20 20">
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 20 20">
                                                 <path stroke="currentColor" stroke-linecap="round"
                                                     stroke-linejoin="round" stroke-width="2"
                                                     d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                             </svg>
-                                            <h3
-                                                class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                 Apakah Anda Yakin Ingin Menghapus Data</h3>
                                             <form
                                                 action="{{ route('inventaris.destroy', ['inventari' => $item->id]) }}"
@@ -234,7 +259,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         @empty
                             <tr>
                                 <td colspan="100%" class=" text-center font-light text-gray-500">Data Belum Ada</td>
@@ -244,10 +269,10 @@
 
                     </tbody>
                 </table>
-               
+
             </div>
             <div class="flex justify-end mt-3">
-                {{$inventaris->links()}}
+                {{ $inventaris->appends(request()->query())->links() }}
             </div>
         </div>
     </div>

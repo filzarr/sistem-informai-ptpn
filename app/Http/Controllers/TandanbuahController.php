@@ -9,10 +9,19 @@ class TandanbuahController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tandanbuah = Tandanbuah::paginate(15);
-        return view('tandan-buah.index', compact('tandanbuah'));
+        $tandanbuah =   Tandanbuah::select('*');
+        // dd($request->query);
+        if ($request->has('filter') or $request->query('filter') !== null ) {
+            $tandanbuah->whereYear('tanggal', 'like'  ,'%'.$request->query('filter').'%' );
+        }
+        if ($request->has('sort')) {
+            $tandanbuah->orderBy('tanggal',$request->query('sort'));
+        }
+        $tandanbuah = $tandanbuah->paginate(15);
+        // dd($tandanbuah);
+        return view('tandan-buah.index', compact('request','tandanbuah'));
     }
 
     /**
