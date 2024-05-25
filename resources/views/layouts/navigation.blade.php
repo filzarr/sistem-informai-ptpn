@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class=" sticky top-0 bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class=" sticky z-50 top-0 bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -184,10 +184,7 @@
                                     </x-dropdown-link>
                                     <x-dropdown-link :href="route('visi-misi')">
                                         {{ __('Visi Dan Misi') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="route('struktur')">
-                                        {{ __('Struktur Organisasi') }}
-                                    </x-dropdown-link>
+                                    </x-dropdown-link> 
                                     <x-dropdown-link :href="route('lokasi')">
                                         {{ __('Lokasi') }}
                                     </x-dropdown-link>

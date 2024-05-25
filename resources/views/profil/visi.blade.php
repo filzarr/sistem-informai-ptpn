@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-profil-layout>
     <x-slot name="header">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -18,32 +18,32 @@
         </nav>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded   mt-10 py-4">
 
         <header class=" flex justify-center">
-            <h3 class=" text-lg font-semibold text-gray-800">Visi dan Misi PTPN IV GUNUNG BANYU</h3>
+            <h3 class=" text-lg font-semibold text-gray-100">Visi dan Misi PTPN IV GUNUNG BANYU</h3>
         </header>
         <div class="grid mt-10 px-24 space-y-8">
 
 
             <header class="w-full">
-                <p class=" text-xl font-semibold text-gray-800">Visi</p>
+                <p class=" text-xl font-semibold text-gray-100">Visi</p>
             </header>
             <div class="mt-5">
-                <p class=" text-gray-600">
+                <p class=" text-gray-200">
                     PT Perkebunan Nusantara IV menjadi perusahaan unggul dalam 
                     usaha agroindustri yang terintegrasi 
                 </p>
             </div>
             <header class="w-full mt-10">
-                <p class=" text-xl font-semibold text-gray-800">Misi</p>
+                <p class=" text-xl font-semibold text-gray-100">Misi</p>
             </header>
             <div class="mt-5 px-5">
                <ol  class="list-decimal" style="list-style: auto">
-                <li class="text-gray-600">Menjalankan usaha dengan prinsip-prinsip usaha terbaik, inovatif, 
+                <li class="text-gray-200">Menjalankan usaha dengan prinsip-prinsip usaha terbaik, inovatif, 
                     dan berdaya saing tinggi.</li>
-                <li class="text-gray-600">Menyelenggarakan usaha agroindustri berbasis kelapa sawit. </li>
-                <li class="text-gray-600">Mengintergrasikan usaha agroindustri hulu, hilir, produk baru, 
+                <li class="text-gray-200">Menyelenggarakan usaha agroindustri berbasis kelapa sawit. </li>
+                <li class="text-gray-200">Mengintergrasikan usaha agroindustri hulu, hilir, produk baru, 
                     penduduk agroindustri dan pendayagunaan aset dengan preferensi 
                     pada teknologi terkini yang teruji (proven) dan berwawasan 
                     lingkungan. </li>
@@ -52,4 +52,4 @@
         </div>
     </div>
 
-</x-app-layout>
+</x-profil-layout>

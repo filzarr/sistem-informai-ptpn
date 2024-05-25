@@ -18,7 +18,7 @@
         </nav>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded  mt-10 py-4">
 
         <header class=" flex justify-center">
             <h3 class=" text-lg font-semibold text-gray-800">Struktur Organisasi PTPN IV GUNUNG BANYU</h3>
@@ -30,20 +30,9 @@
                 <p class=" text-xl font-semibold text-gray-800">Struktur</p>
             </header>
             <div class="mt-8">
-                <p class=" text-gray-600">
-                    Struktur organisasi merupakan landasan pokok perusahaan. Perusahaan 
-                    yang baik memiliki struktur yang baik pula, sehingga sistem oprasional dapat 
-                    terlaksana dengan lancar dan mempermudah koordinasi serta pengawasan 
-                    terhadap setiap kegiatan. 
-                    <br>
-                    <br>
-                    Organisasi yang terdapat di PT P. Nusantara IV (Persero) Kebun Gunung 
-                    Bayu ini dipimpin oleh seorang Manager Unit dan dibantu oleh beberapa staf 
-                    yang di dalamnya telah terlihat batasan pertanggungjawaban dari setiap bidang 
-                    pekerjaan tersebut, disamping itu ditunjukkan hubungan antara satu seksi dengan 
-                    seksi lainnya melalui fungsi masing-masing. 
+                <p class=" text-gray-600">  
                     <div class="w-full flex justify-center">
-                        <img src="/struktur.png" class="w-1/2" alt="">
+                        <img src="/struktur.png" class="w-full" alt="">
                     </div>
                 </p>
                 <p class="text-center text-gray-600">Gambar 3 Struktur Organisasi PKS Gunung Bayu</p>

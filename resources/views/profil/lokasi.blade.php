@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-profil-layout>
     <x-slot name="header">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -18,16 +18,16 @@
         </nav>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded bg-white mt-10 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded   mt-10 py-4">
 
         <header class=" flex justify-center">
-            <h3 class=" text-lg font-semibold text-gray-800">Lokasi PTPN IV GUNUNG BANYU</h3>
+            <h3 class=" text-lg font-semibold text-gray-100">Lokasi PTPN IV GUNUNG BANYU</h3>
         </header>
         <div class="grid mt-10 px-24 space-y-8">
 
 
             <div class="mt-5">
-                <p class=" text-gray-600">
+                <p class=" text-gray-200">
                     Lokasi Kebun Gunung Bayu berada sekitar 48 meter diatas pemukaan
                     10
                     laut, terletak dikecamatan Bosar Maligas dan kecamatan Bandar, kabupaten
@@ -36,23 +36,22 @@
                     <br>
                 </p>
                 <ul class="">
-                    <li class="text-gray-600">Kota Medan : 150 km </li>
-                    <li class="text-gray-600">Kota Pematang Siantar : 49 km </li>
-                    <li class="text-gray-600">Kantor GUU I, II, IV, V Bah Jambi : 36 km T </li>
+                    <li class="text-gray-200">Kota Medan : 150 km </li>
+                    <li class="text-gray-200">Kota Pematang Siantar : 49 km </li>
+                    <li class="text-gray-200">Kantor GUU I, II, IV, V Bah Jambi : 36 km T </li>
                 </ul>
                 <br> 
-                <p class=" text-gray-600">
+                <p class=" text-gray-200">
                     Topografi keadaan tanah secara umum datar, sedikit bergelombang dan
                     berbukit. Jenis tanah Podsolit Coklat Kuning (PCK) dan Podsolit Coklat (PC).
                 </p>
                 <br> 
                 <div class="w-full flex justify-center">
                     <img src="/lokasi.png" class="w-1/4" alt="">
-                </div>
-                <p class="text-center text-gray-600">Gambar 2 Denah Pabrik PKS Gunung Bayu</p>
+                </div> 
 
             </div>
         </div>
     </div>
 
-</x-app-layout>
+</x-profil-layout>
