@@ -15,81 +15,49 @@
 
 
                     @if (auth()->user()->role_user == 1)
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                            <x-dropdown width="48">
+                                <x-slot name="trigger">
+                                    <button
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        <div>Profil</div>
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('sejarah')">
+                                        {{ __('Sejarah') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('visi-misi')">
+                                        {{ __('Visi Dan Misi') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('struktur')">
+                                        {{ __('Struktur Organisasi') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('lokasi')">
+                                        {{ __('Lokasi') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('standarisasi')" :active="request()->routeIs('standarisasi')">
+                            {{ __('Standarisasi Norma') }}
                         </x-nav-link>
                         <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
                             {{ __('Manajemen Pengguna') }}
                         </x-nav-link>
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <x-dropdown width="48">
-                                <x-slot name="trigger">
-                                    <button
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                        <div>Profil</div>
-                                        <div class="ms-1">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </x-slot>
-                                <x-slot name="content">
-                                    <x-dropdown-link :href="route('sejarah')">
-                                        {{ __('Sejarah') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="route('visi-misi')">
-                                        {{ __('Visi Dan Misi') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="route('struktur')">
-                                        {{ __('Struktur Organisasi') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="route('lokasi')">
-                                        {{ __('Lokasi') }}
-                                    </x-dropdown-link>
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
                     @endif
                     @if (auth()->user()->role_user == 3)
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <x-dropdown width="48">
-                                <x-slot name="trigger">
-                                    <button
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                        <div>Pendataan</div>
-                                        <div class="ms-1">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </x-slot>
-                                <x-slot name="content">
-                                    <x-dropdown-link :href="route('inventaris')">
-                                        {{ __('Inventaris Alat dan Mesin') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="route('tandan-buah')">
-                                        {{ __('Tandan Buah Masuk') }}
-                                    </x-dropdown-link>
-                                </x-slot>
-                            </x-dropdown>
-                        </div>
-                        <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
-                            {{ __('Laporan Harian') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
-                            {{ __('Analisa Data Sawit') }}
-                        </x-nav-link>
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <x-dropdown width="48">
                                 <x-slot name="trigger">
@@ -122,8 +90,6 @@
                                 </x-slot>
                             </x-dropdown>
                         </div>
-                    @endif
-                    @if (auth()->user()->role_user == 2 or auth()->user()->role_user == 4)
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
@@ -153,15 +119,18 @@
                                 </x-slot>
                             </x-dropdown>
                         </div>
-                        <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
-                            {{ __('Laporan Harian') }}
-                        </x-nav-link>
                         <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
                             {{ __('Analisa CPO Produksi') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
-                            {{ __('Manajemen Pengguna') }}
+                        <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
+                            {{ __('Laporan Harian') }}
                         </x-nav-link>
+                       
+                        <x-nav-link :href="route('standarisasi')" :active="request()->routeIs('standarisasi')">
+                            {{ __('Standarisasi Norma') }}
+                        </x-nav-link>
+                    @endif
+                    @if (auth()->user()->role_user == 2 or auth()->user()->role_user == 4)
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <x-dropdown width="48">
                                 <x-slot name="trigger">
@@ -184,17 +153,56 @@
                                     </x-dropdown-link>
                                     <x-dropdown-link :href="route('visi-misi')">
                                         {{ __('Visi Dan Misi') }}
-                                    </x-dropdown-link> 
+                                    </x-dropdown-link>
                                     <x-dropdown-link :href="route('lokasi')">
                                         {{ __('Lokasi') }}
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-dropdown>
                         </div>
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                            <x-dropdown width="48">
+                                <x-slot name="trigger">
+                                    <button
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        <div>Pendataan</div>
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('inventaris')">
+                                        {{ __('Inventaris Alat dan Mesin') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('tandan-buah')">
+                                        {{ __('Tandan Buah Masuk') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                        <x-nav-link :href="route('analisa')" :active="request()->routeIs('analisa')">
+                            {{ __('Analisa CPO Produksi') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('laporan-harian')" :active="request()->routeIs('laporan-harian')">
+                            {{ __('Laporan Harian') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('standarisasi')" :active="request()->routeIs('standarisasi')">
+                            {{ __('Standarisasi Norma') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                            {{ __('Manajemen Pengguna') }}
+                        </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('standarisasi')" :active="request()->routeIs('standarisasi')">
-                        {{ __('Standarisasi Norma') }}
-                    </x-nav-link>
+                   
 
                 </div>
             </div>
