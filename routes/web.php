@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventarisController;
@@ -22,7 +23,12 @@ use App\Http\Controllers\DataMinyakIntiSawitController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
- 
+Route::get('profil/sejarah', [ProfilController::class, 'sejarah'])->name('sejarah');
+Route::get('profil/visi-misi', [ProfilController::class, 'visimisi'])->name('visi-misi');
+Route::get('profil/lokasi', [ProfilController::class, 'lokasi'])->name('lokasi');
+Route::get('standarisasi-norma', [ProfilController::class, 'standarisasi'])->name('standarisasi');
+Route::get('profil/struktur-organisasi', [ProfilController::class, 'struktur'])->name('struktur');
+
 Route::middleware('auth', 'active')->group(function () {
     Route::middleware('direktur', 'su')->group(function () {
     });
